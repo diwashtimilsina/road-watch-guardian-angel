@@ -7,6 +7,7 @@ declare module "react-leaflet" {
     center?: [number, number];
     zoom?: number;
     whenCreated?: (map: Map) => void;
+    zoomControl?: boolean;
   }
   
   interface TileLayerProps {
