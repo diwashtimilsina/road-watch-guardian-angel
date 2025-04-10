@@ -12,6 +12,9 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AdminPanel from "./pages/AdminPanel";
 import DriverPanel from "./pages/DriverPanel";
+import DriverPanelAuth from "./pages/DriverPanelAuth";
+import DriverLogin from "./pages/DriverLogin";
+import DriverRegister from "./pages/DriverRegister";
 import UserPanel from "./pages/UserPanel";
 
 const queryClient = new QueryClient();
@@ -38,7 +41,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/admin" element={<AdminPanel vehicles={vehicles} incidents={incidents} />} />
-            <Route path="/driver" element={<DriverPanel />} />
+            <Route path="/driver" element={<DriverPanelAuth />} />
+            <Route path="/driver-login" element={<DriverLogin />} />
+            <Route path="/driver-register" element={<DriverRegister />} />
             <Route path="/user" element={<UserPanel vehicles={vehicles} incidents={incidents} />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

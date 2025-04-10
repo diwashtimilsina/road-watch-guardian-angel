@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
-import { Car, Shield, Users, Map as MapIcon } from "lucide-react";
+import { Car, Shield, Users, Map as MapIcon, LogIn, UserPlus } from "lucide-react";
 
 import PanelNavigation from '../components/layout/PanelNavigation';
 
@@ -81,10 +81,24 @@ const Index: React.FC = () => {
                 Update vehicle status, report incidents, and receive dispatch communications
               </p>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex flex-col gap-2">
               <Button asChild variant="outline" className="w-full">
                 <Link to="/driver">Access Driver Portal</Link>
               </Button>
+              <div className="grid grid-cols-2 gap-2 w-full">
+                <Button asChild variant="ghost" size="sm" className="w-full">
+                  <Link to="/driver-login" className="flex items-center">
+                    <LogIn className="mr-1 h-4 w-4" /> 
+                    Login
+                  </Link>
+                </Button>
+                <Button asChild variant="ghost" size="sm" className="w-full">
+                  <Link to="/driver-register" className="flex items-center">
+                    <UserPlus className="mr-1 h-4 w-4" /> 
+                    Register
+                  </Link>
+                </Button>
+              </div>
             </CardFooter>
           </Card>
 
