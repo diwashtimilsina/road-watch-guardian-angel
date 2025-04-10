@@ -36,26 +36,49 @@ const DriverLogin: React.FC = () => {
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     
-    // Mock authentication - would connect to a real backend in production
+    // Check if credentials are in localStorage from registration
+    const registeredDrivers = JSON.parse(localStorage.getItem('registeredDrivers') || '[]');
+    console.log('Checking credentials against registered drivers:', registeredDrivers);
+    
+    // Find driver with matching licenseId
+    const matchingDriver = registeredDrivers.find(
+      (driver: any) => driver.licenseId === values.licenseId
+    );
+    
     setTimeout(() => {
-      // For demo, hardcode a valid license/password
-      if (values.licenseId === "DL-9876543" && values.password === "password123") {
+      // Check if driver exists and password matches
+      if (matchingDriver && matchingDriver.password === values.password) {
         toast({
           title: "Login successful",
-          description: "Welcome back, driver",
+          description: `Welcome back, ${matchingDriver.fullName || 'driver'}`,
         });
         
-        // Store login state in localStorage (for demo purposes)
+        // Store login state in localStorage
         localStorage.setItem('driverLoggedIn', 'true');
         localStorage.setItem('driverLicenseId', values.licenseId);
+        localStorage.setItem('currentDriverName', matchingDriver.fullName || '');
         
         navigate('/driver');
       } else {
-        toast({
-          title: "Login failed",
-          description: "Invalid license ID or password",
-          variant: "destructive",
-        });
+        // For demo, also allow the hardcoded credentials
+        if (values.licenseId === "DL-9876543" && values.password === "password123") {
+          toast({
+            title: "Login successful",
+            description: "Welcome back, driver",
+          });
+          
+          localStorage.setItem('driverLoggedIn', 'true');
+          localStorage.setItem('driverLicenseId', values.licenseId);
+          localStorage.setItem('currentDriverName', 'John Driver');
+          
+          navigate('/driver');
+        } else {
+          toast({
+            title: "Login failed",
+            description: "Invalid license ID or password",
+            variant: "destructive",
+          });
+        }
       }
       
       setIsLoading(false);
